@@ -107,7 +107,68 @@
             color: #c77dff;
             text-decoration: underline;
         }
-    </style>
+    
+    nav {
+        display: flex;
+        align-items: center;
+        background: #0a043c;
+        padding: 1rem;
+        border-bottom: 1px solid #3a0ca3;
+    }
+
+    nav a {
+        color: #e0aaff;
+        text-decoration: none;
+        font-weight: bold;
+        margin-right: 1rem;
+    }
+
+    nav a:hover {
+        color: #c77dff;
+    }
+
+    /* Style for the toggle button */
+    #nav-toggle {
+        background: none;
+        border: none;
+        color: #e0aaff;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: none; /* Hidden by default for larger screens */
+    }
+
+    #nav-toggle:focus {
+        outline: none;
+    }
+
+    /* Hide links initially */
+    .hidden {
+        display: none;
+    }
+
+    /* Display links when expanded */
+    .expanded {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Mobile-first styling */
+    @media (max-width: 768px) {
+        #nav-toggle {
+            display: block; /* Show toggle button on smaller screens */
+        }
+
+        #nav-links {
+            flex-direction: column;
+            margin-top: 1rem;
+        }
+
+        nav a {
+            margin: 0.5rem 0;
+        }
+    }
+</style>
+
 </head>
 <body>
     <header>
@@ -126,7 +187,6 @@
     </div>
 </nav>
 
-   
     <div class="container">
     <article class="post" onclick="togglePost(this)">
         <h2>#3</h2>
@@ -163,6 +223,13 @@
             preview.style.display = 'block';
         }
     }
+</script>
+ <script>
+    document.getElementById('nav-toggle').addEventListener('click', function () {
+        const navLinks = document.getElementById('nav-links');
+        navLinks.classList.toggle('hidden');
+        navLinks.classList.toggle('expanded');
+    });
 </script>
 
     <footer>
