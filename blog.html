@@ -3,87 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Carivium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Uncial+Antiqua&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Uncial Antiqua', serif;
+            background-color: #1a1a2e;
+            color: #e0e0e0;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
-            background-color: #f9f9f9;
-            color: #333;
+            line-height: 1.8;
         }
 
         header {
-            background: #333;
-            color: #fff;
-            padding: 1rem 0;
+            background: linear-gradient(135deg, #3a0ca3, #0a043c);
+            color: #f4f4f4;
+            padding: 1.5rem 0;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.5rem;
+            font-size: 3rem;
+            text-shadow: 2px 2px 8px #000;
         }
 
         nav {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            background: #444;
-            padding: 0.5rem 0;
+            gap: 1.5rem;
+            background: #0a043c;
+            padding: 1rem 0;
+            border-bottom: 1px solid #3a0ca3;
         }
 
         nav a {
-            color: #fff;
+            color: #e0aaff;
             text-decoration: none;
             font-weight: bold;
+            transition: color 0.3s ease;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            color: #c77dff;
         }
 
         .container {
             max-width: 800px;
             margin: 2rem auto;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
         }
 
         .post {
-            background: #fff;
+            background: #0f3460;
             margin-bottom: 2rem;
             padding: 1.5rem;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid #3a0ca3;
         }
 
         .post h2 {
             margin: 0 0 0.5rem;
-            color: #333;
+            color: #e0aaff;
         }
 
         .post .meta {
             font-size: 0.9rem;
-            color: #666;
+            color: #a29bfe;
             margin-bottom: 1rem;
+            font-style: italic;
         }
 
         .post p {
             margin: 0;
+            color: #dcd6f7;
         }
 
         footer {
             text-align: center;
-            padding: 1rem 0;
-            background: #333;
-            color: #fff;
+            padding: 1.5rem 0;
+            background: #0a043c;
+            color: #f4f4f4;
             margin-top: 2rem;
+            border-top: 1px solid #3a0ca3;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.5);
         }
 
         footer p {
             margin: 0;
+            font-style: italic;
+        }
+
+        footer p a {
+            color: #e0aaff;
+            text-decoration: none;
+        }
+
+        footer p a:hover {
+            color: #c77dff;
+            text-decoration: underline;
         }
     </style>
 </head>
