@@ -106,7 +106,15 @@ nav a:hover {
         margin: 0.5rem 0;
     }
 }
-
+        
+.center-screen {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 100vh; /* Ensures the container takes up the full height of the viewport */
+    margin: 20px; /* Adds margin around the container */
+}
+        
 .container {
     max-width: 800px;
     margin: 2rem auto;
@@ -290,7 +298,9 @@ But that doesn't mean we shouldn't pursue justice, nor equality, nor equity. We 
     </article>
 </div>
     <div class="center-screen">
+        <div class="content">
     <img src="ruminations.jpg" alt="ruminations">
+    </div>
     </div>
 
 <script>
