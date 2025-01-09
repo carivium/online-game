@@ -55,6 +55,14 @@ nav a {
 nav a:hover {
     color: #ffffff; /* White */
 }
+        
+.center-screen {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 100vh; /* Ensures the container takes up the full height of the viewport */
+    margin: 20px; /* Adds margin around the container */
+}
 
 .container {
     max-width: 800px;
@@ -225,7 +233,11 @@ footer p a:hover {
 </div>
  </div>
  </div>
-    <img src="essays.jpg" alt="grasping">
+ <div class="center-screen">
+    <div class="content">
+        <img src="essays.jpg" alt="grasping">
+    </div>
+ </div>
 <script>
     function togglePost(post) {
         const fullContent = post.querySelector('.full-content');
