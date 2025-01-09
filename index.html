@@ -3,23 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>11 January 1818</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            background: #444;
+            padding: 0.5rem 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .skills, .projects {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .projects img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .timeline {
+            border-left: 3px solid #333;
+            margin: 2rem 0;
+            padding: 0 1rem;
+        }
+
+        .timeline div {
+            margin-bottom: 1rem;
+        }
+
+        .timeline div h3 {
+            margin: 0;
+            color: #444;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background: #333;
+            color: #fff;
+        }
+
+        .contact-form input, .contact-form textarea, .contact-form button {
+            display: block;
+            width: 100%;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            background: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background: #555;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to The Online Church</h1>
+        <h1>Digan Gurung</h1>
+        <p>Poet | Writer | Philosopher</p>
     </header>
 
-    <section>
-        <p>This is where believers from all over the world can worship together.</p>
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="about" class="section">
+        <h2>An Internet Tomb</h2>
+        <p> Look on my works, ye mighty, and despair! </p>
+    </section>
+
+    <section id="skills" class="section">
+        <h2>Skills</h2>
+        <div class="skills">
+            <div>
+                <h3>Programming Languages</h3>
+                <p>HTML, CSS, Java, Python, JavaScript, R</p>
+            </div>
+            <div>
+                <h3>Frameworks & Tools</h3>
+                <p>Spring Boot, React, Docker</p>
+            </div>
+            <div>
+                <h3>Soft Skills</h3>
+                <p>Team collaboration, Problem-solving, Time management</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <h2>Projects</h2>
+        <div class="projects">
+            <div>
+                <h3>Ozymandius</h3>
+                <p>An ever-changing mausoleum housing the living. Tools used: React, Node.js, MongoDB.</p>
+                <img src="Ozymandius.jpg" alt="King of Kings">
+                <a href="#">Live Demo</a> | <a href="#">Source Code</a>
+            </div>
+            <div>
+                <h3>Project Title 2</h3>
+                <p>Description of your project. Tools used: Java, Spring Boot, PostgreSQL.</p>
+                <img src="project2.jpg" alt="Project Screenshot">
+                <a href="#">Live Demo</a> | <a href="#">Source Code</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="resume" class="section">
+        <h2>Education</h2>
+        <div class="timeline">
+            <div>
+                <h3>Bachelors in Economics and Philosophy</h3>
+                <p>University of Melbourne | 2021–2024</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Notes for me</h2>
+        <form class="contact-form" action="https://formspree.io/f/xnnnlajd" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
     </section>
 
     <footer>
-        <p>Contact me at: s.nanobytes@gmail.com</p>
+        <p>&copy; 2025 Digan Gurung. All rights reserved.</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
-    <link rel="stylesheet" href="index.css">
 </html>
