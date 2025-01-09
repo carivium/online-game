@@ -120,26 +120,44 @@
     <a href="projects.html">Projects</a>
     <a href="contact.html">Contact</a>
 </nav>
-
+   
     <div class="container">
-        <article class="post">
-            <h2>The Beginning</h2>
-            <p class="meta">Posted on January 9, 2025 | By Digan Gurung</p>
-            <p>I am trying to blog the ongoing events in my life as much as I am able to, just to give my thoughts on items. I wish to retain my critical thinking faculties.</p>
-        </article>
+    <article class="post" onclick="togglePost(this)">
+        <h2>#3</h2>
+        <p class="meta">Posted on January 1, 2025 | By Ego</p>
+        <p class="preview">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+        <p class="full-content" style="display: none;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec ex vel erat pulvinar tincidunt. Integer venenatis libero nec volutpat cursus. Sed at fermentum nisl, vel tincidunt nulla.</p>
+    </article>
 
-        <article class="post">
-            <h2>Post Title 2</h2>
-            <p class="meta">Posted on December 31, 2024 | By Author</p>
-            <p>Donec sit amet arcu in urna ultricies aliquet. Maecenas congue, justo at vehicula fermentum, magna massa varius neque, a finibus justo risus ac orci.</p>
-        </article>
+    <article class="post" onclick="togglePost(this)">
+        <h2>#2</h2>
+        <p class="meta">Posted on December 31, 2024 | By Ego</p>
+        <p class="preview">Donec sit amet arcu in urna ultricies aliquet...</p>
+        <p class="full-content" style="display: none;">Donec sit amet arcu in urna ultricies aliquet. Maecenas congue, justo at vehicula fermentum, magna massa varius neque, a finibus justo risus ac orci.</p>
+    </article>
 
-        <article class="post">
-            <h2>Post Title 3</h2>
-            <p class="meta">Posted on December 30, 2024 | By Author</p>
-            <p>Curabitur ut erat vehicula, luctus ligula eget, auctor purus. Etiam quis urna a arcu porttitor tristique quis at neque.</p>
-        </article>
-    </div>
+    <article class="post" onclick="togglePost(this)">
+        <h2>#1</h2>
+        <p class="meta">Posted on December 30, 2024 | By Ego</p>
+        <p class="preview">Curabitur ut erat vehicula, luctus ligula eget...</p>
+        <p class="full-content" style="display: none;">Curabitur ut erat vehicula, luctus ligula eget, auctor purus. Etiam quis urna a arcu porttitor tristique quis at neque.</p>
+    </article>
+</div>
+
+<script>
+    function togglePost(post) {
+        const fullContent = post.querySelector('.full-content');
+        const preview = post.querySelector('.preview');
+
+        if (fullContent.style.display === 'none') {
+            fullContent.style.display = 'block';
+            preview.style.display = 'none';
+        } else {
+            fullContent.style.display = 'none';
+            preview.style.display = 'block';
+        }
+    }
+</script>
 
     <footer>
         <p>&copy; 2025 Carivium. All rights reserved.</p>
