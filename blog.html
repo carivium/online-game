@@ -107,6 +107,65 @@
             color: #c77dff;
             text-decoration: underline;
         }
+           nav {
+        display: flex;
+        align-items: center;
+        background: #0a043c;
+        padding: 1rem;
+        border-bottom: 1px solid #3a0ca3;
+    }
+
+    nav a {
+        color: #e0aaff;
+        text-decoration: none;
+        font-weight: bold;
+        margin-right: 1rem;
+    }
+
+    nav a:hover {
+        color: #c77dff;
+    }
+
+    /* Style for the toggle button */
+    #nav-toggle {
+        background: none;
+        border: none;
+        color: #e0aaff;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: none; /* Hidden by default for larger screens */
+    }
+
+    #nav-toggle:focus {
+        outline: none;
+    }
+
+    /* Hide links initially */
+    .hidden {
+        display: none;
+    }
+
+    /* Display links when expanded */
+    .expanded {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Mobile-first styling */
+    @media (max-width: 768px) {
+        #nav-toggle {
+            display: block; /* Show toggle button on smaller screens */
+        }
+
+        #nav-links {
+            flex-direction: column;
+            margin-top: 1rem;
+        }
+
+        nav a {
+            margin: 0.5rem 0;
+        }
+    }
     </style>
 </head>
 <body>
@@ -114,13 +173,16 @@
         <h1>Ruminations</h1>
     </header>
 
-    <nav>
+     <nav>
     <a href="index.html">Home</a>
-    <a href="blog.html">Ruminations</a>
-    <a href="poems.html">Prose</a>
-    <a href="essays.html">Essays</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
+    <button id="nav-toggle" aria-label="More">☰</button>
+    <div id="nav-links" class="hidden">
+        <a href="blog.html">Ruminations</a>
+        <a href="poems.html">Prose</a>
+        <a href="essays.html">Essays</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+    </div>
 </nav>
    
     <div class="container">
@@ -159,6 +221,13 @@
             preview.style.display = 'block';
         }
     }
+</script>
+    <script>
+    document.getElementById('nav-toggle').addEventListener('click', function () {
+        const navLinks = document.getElementById('nav-links');
+        navLinks.classList.toggle('hidden');
+        navLinks.classList.toggle('expanded');
+    });
 </script>
 
     <footer>
