@@ -11,7 +11,15 @@
     justify-content: center; /* Centers horizontally */
     align-items: center; /* Centers vertically */
     height: 100vh; /* Ensures the container takes up the full height of the viewport */
-    margin: 0; /* Remove any default margin */
+    margin: 20px; /* Adds margin around the container */
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 600px) {
+    .center-screen {
+        margin: 10px; /* Decrease margin on smaller screens */
+    }
+}
 }
         @media (max-width: 768px) {
   body {
