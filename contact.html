@@ -6,10 +6,12 @@
     <title>Contact</title>
     <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Cinzel:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        .center-text {
-    text-align: center; /* Centers text horizontally */
-    vertical-align: middle; /* Centers text vertically in inline-block or table-cell elements */
-    line-height: 100vh; /* Centers text vertically (for single-line text) */
+       .center-screen {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 100vh; /* Ensures the container takes up the full height of the viewport */
+    margin: 0; /* Remove any default margin */
 }
 
         body {
@@ -206,7 +208,7 @@
         <a href="contact.html">Contact</a>
     </div>
 </nav>
-    <section id="contact" class="section">
+    <section id="contact" class="center-screen">
         <h2>Notes for me.</h2>
         <form class="contact-form" action="https://formspree.io/f/xnnnlajd" method="POST">
            <p> <input type="text" name="name" placeholder="Your Name" required> </p> 
