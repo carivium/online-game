@@ -6,6 +6,11 @@
     <title>Carivium</title>
     <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Cinzel:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        img {
+    max-width: 100%; /* Ensures the image scales down if it's larger than its container */
+    height: auto; /* Maintains the aspect ratio */
+    display: block; /* Removes bottom spacing caused by inline images */
+}
         body {
     font-family: 'Cinzel', sans-serif;
     background-color: #1a1a1a; /* Dark gray */
@@ -217,6 +222,7 @@ footer p a:hover {
             <p class="preview">Thompson’s Trolley Problem . . .</p>
         </article>
     </a>
+    <img src="essays.jpg" alt="grasping">
 <script>
     function togglePost(post) {
         const fullContent = post.querySelector('.full-content');
