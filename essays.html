@@ -167,12 +167,29 @@
             margin: 0.5rem 0;
         }
     }
+     .post {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        background: #0f3460;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        border: 1px solid #3a0ca3;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .post:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    }
 </style>
 
 </head>
 <body>
     <header>
-        <h1>Ruminations</h1>
+        <h1>Essays</h1>
     </header>
 
     <nav>
@@ -188,12 +205,13 @@
 </nav>
 
     <div class="container">
-    <article class="post" onclick="togglePost(this)">
-        <h2>#3</h2>
-        <p class="meta">Posted on January 1, 2025 | By Ego</p>
-        <p class="preview">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-        <p class="full-content" style="display: none;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec ex vel erat pulvinar tincidunt. Integer venenatis libero nec volutpat cursus. Sed at fermentum nisl, vel tincidunt nulla.</p>
-    </article>
+         <a href="skills.html" class="post">
+        <article>
+            <h2>#3</h2>
+            <p class="meta">Posted on January 1, 2025 | By Ego</p>
+            <p class="preview">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+        </article>
+    </a>
 
     <article class="post" onclick="togglePost(this)">
         <h2>#2</h2>
