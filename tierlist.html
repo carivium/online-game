@@ -118,9 +118,28 @@
         <button id="reset-grid">Reset</button>
         <button id="increase-cell-size">Increase Cell Size</button>
         <button id="decrease-cell-size">Decrease Cell Size</button>
+        <!-- Add a slider for adjusting cell size -->
+<label for="cell-size-slider">Cell Size:</label>
+<input type="range" id="cell-size-slider" min="10" max="100" step="1" value="50">
+<span id="cell-size-value">50</span>px
+
     </div>
 
     <script>
+        // Add an event listener to the slider to adjust cell size
+const cellSizeSlider = document.getElementById('cell-size-slider');
+const cellSizeValueDisplay = document.getElementById('cell-size-value');
+
+// Set the initial value of the cell size
+cellSizeSlider.value = cellSize;
+
+// Listen for changes on the slider
+cellSizeSlider.addEventListener('input', () => {
+    cellSize = parseInt(cellSizeSlider.value);
+    cellSizeValueDisplay.textContent = cellSize; // Update the displayed value
+    updateCellSize(); // Update the grid with the new cell size
+});
+
         const gridContainer = document.getElementById('grid-container');
         const gridSizeInput = document.getElementById('grid-size');
         const setGridButton = document.getElementById('set-grid');
