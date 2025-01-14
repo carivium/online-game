@@ -9,18 +9,28 @@
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #000;
+            color: #fff;
         }
 
         #controls {
-            margin-right: 20px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 200px;
             padding: 10px;
             background-color: #fff;
             border: 1px solid #ccc;
             border-radius: 5px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        #controls.collapsed {
+            transform: translateX(200px);
         }
 
         #controls label {
@@ -51,14 +61,14 @@
 
         #grid-container {
             display: grid;
-            grid-template-columns: repeat(3, 50px);
-            grid-template-rows: repeat(3, 50px);
-            gap: 5px;
-            resize: both;
-            overflow: auto;
-            background-color: #fff;
-            width: 165px; /* 3 columns * 50px + 2 gaps (5px each) */
-            height: 165px; /* 3 rows * 50px + 2 gaps (5px each) */
+            grid-gap: 5px;
+            background-color: #000;
+            width: auto;
+            max-width: 80%;
+            height: auto;
+            max-height: 80%;
+            justify-content: center;
+            align-items: center;
         }
 
         .cell {
@@ -67,7 +77,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #ddd;
+            background-color: #fff;
             border: 1px solid #000;
             font-size: 18px;
             cursor: pointer;
@@ -98,6 +108,7 @@
         const gridContainer = document.getElementById('grid-container');
         const gridSizeInput = document.getElementById('grid-size');
         const setGridButton = document.getElementById('set-grid');
+        const controlsPanel = document.getElementById('controls');
 
         function adjustGrid() {
             const containerWidth = Math.floor(gridContainer.offsetWidth / 55); // 50px + 5px gap
@@ -146,9 +157,23 @@
             }
         }
 
+        // Function to toggle collapsed state of controls panel
+        function toggleControlsPanel() {
+            controlsPanel.classList.toggle('collapsed');
+        }
+
         // Attach event listener to handle resizing
         gridContainer.addEventListener('mouseup', adjustGrid);
         setGridButton.addEventListener('click', setGridSize);
+
+        // Keyboard shortcuts for collapsing/expanding controls panel
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.key === '>') {
+                toggleControlsPanel();
+            } else if (event.ctrlKey && event.key === '<') {
+                toggleControlsPanel();
+            }
+        });
     </script>
 </body>
 </html>
