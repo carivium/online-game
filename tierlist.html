@@ -44,6 +44,7 @@
             border: none;
             border-radius: 3px;
             cursor: pointer;
+            margin-bottom: 10px;
         }
 
         #controls button:hover {
@@ -96,19 +97,25 @@
         <label for="grid-size">Enter Grid Size (e.g., 3x7):</label>
         <input type="text" id="grid-size" placeholder="Rows x Columns">
         <button id="set-grid">Set Grid</button>
-        <button id="clear-grid">Clear</button>
+        <button id="reset-grid">Reset</button>
+        <button id="increase-cell-size">Increase Cell Size</button>
+        <button id="decrease-cell-size">Decrease Cell Size</button>
     </div>
 
     <script>
         const gridContainer = document.getElementById('grid-container');
         const gridSizeInput = document.getElementById('grid-size');
         const setGridButton = document.getElementById('set-grid');
-        const clearGridButton = document.getElementById('clear-grid');
+        const resetGridButton = document.getElementById('reset-grid');
+        const increaseCellSizeButton = document.getElementById('increase-cell-size');
+        const decreaseCellSizeButton = document.getElementById('decrease-cell-size');
+
+        let cellSize = 50; // Default cell size
 
         // Adjust the grid dynamically when resized
         gridContainer.addEventListener('mouseup', () => {
-            const cols = Math.floor(gridContainer.offsetWidth / 55); // 50px + 5px gap
-            const rows = Math.floor(gridContainer.offsetHeight / 55);
+            const cols = Math.floor(gridContainer.offsetWidth / (cellSize + 5)); // cell size + gap
+            const rows = Math.floor(gridContainer.offsetHeight / (cellSize + 5));
 
             updateGrid(rows, cols);
         });
@@ -125,15 +132,40 @@
             }
         });
 
-        // Clear the grid to its default 3x3 state
-        clearGridButton.addEventListener('click', () => {
+        // Reset the grid to its default 3x3 state with default cell size
+        resetGridButton.addEventListener('click', () => {
+            cellSize = 50;
+            gridContainer.style.gridTemplateColumns = `repeat(3, ${cellSize}px)`;
+            gridContainer.style.gridTemplateRows = `repeat(3, ${cellSize}px)`;
             updateGrid(3, 3);
         });
 
+        // Increase cell size
+        increaseCellSizeButton.addEventListener('click', () => {
+            cellSize += 10;
+            updateCellSize();
+        });
+
+        // Decrease cell size
+        decreaseCellSizeButton.addEventListener('click', () => {
+            cellSize = Math.max(10, cellSize - 10); // Minimum size of 10px
+            updateCellSize();
+        });
+
+        // Update cell size across the grid
+        function updateCellSize() {
+            gridContainer.style.gridTemplateColumns = `repeat(auto-fill, ${cellSize}px)`;
+            gridContainer.style.gridTemplateRows = `repeat(auto-fill, ${cellSize}px)`;
+            Array.from(gridContainer.children).forEach(cell => {
+                cell.style.width = `${cellSize}px`;
+                cell.style.height = `${cellSize}px`;
+            });
+        }
+
         // Update the grid dimensions and cells
         function updateGrid(rows, cols) {
-            gridContainer.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
-            gridContainer.style.gridTemplateRows = `repeat(${rows}, 50px)`;
+            gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${cellSize}px)`;
+            gridContainer.style.gridTemplateRows = `repeat(${rows}, ${cellSize}px)`;
 
             const totalCells = rows * cols;
 
@@ -141,6 +173,8 @@
                 const cell = document.createElement('div');
                 cell.className = 'cell';
                 cell.addEventListener('click', handleCellClick);
+                cell.style.width = `${cellSize}px`;
+                cell.style.height = `${cellSize}px`;
                 gridContainer.appendChild(cell);
             }
 
