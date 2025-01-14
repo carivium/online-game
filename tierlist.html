@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adjustable Tic-Tac-Toe Grid</title>
+    <title>Resizable Tic-Tac-Toe Grid</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -61,6 +61,8 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            resize: both;
+            overflow: auto;
         }
 
         .cell {
@@ -94,42 +96,63 @@
         <label for="grid-size">Enter Grid Size (e.g., 3x7):</label>
         <input type="text" id="grid-size" placeholder="Rows x Columns">
         <button id="set-grid">Set Grid</button>
+        <button id="clear-grid">Clear</button>
     </div>
 
     <script>
         const gridContainer = document.getElementById('grid-container');
         const gridSizeInput = document.getElementById('grid-size');
         const setGridButton = document.getElementById('set-grid');
+        const clearGridButton = document.getElementById('clear-grid');
 
-        // Function to reset and create a new grid
-        function setGridSize() {
+        // Adjust the grid dynamically when resized
+        gridContainer.addEventListener('mouseup', () => {
+            const cols = Math.floor(gridContainer.offsetWidth / 55); // 50px + 5px gap
+            const rows = Math.floor(gridContainer.offsetHeight / 55);
+
+            updateGrid(rows, cols);
+        });
+
+        // Set grid size based on user input
+        setGridButton.addEventListener('click', () => {
             const gridSize = gridSizeInput.value.trim();
             const [rows, cols] = gridSize.split('x').map(Number);
 
             if (rows > 0 && cols > 0) {
-                gridContainer.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
-                gridContainer.style.gridTemplateRows = `repeat(${rows}, 50px)`;
-
-                const totalCells = rows * cols;
-
-                while (gridContainer.children.length < totalCells) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell';
-                    cell.addEventListener('click', playTicTacToe);
-                    gridContainer.appendChild(cell);
-                }
-
-                while (gridContainer.children.length > totalCells) {
-                    gridContainer.removeChild(gridContainer.lastChild);
-                }
+                updateGrid(rows, cols);
             } else {
                 alert('Please enter a valid grid size (e.g., 3x7).');
             }
+        });
+
+        // Clear the grid to its default 3x3 state
+        clearGridButton.addEventListener('click', () => {
+            updateGrid(3, 3);
+        });
+
+        // Update the grid dimensions and cells
+        function updateGrid(rows, cols) {
+            gridContainer.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
+            gridContainer.style.gridTemplateRows = `repeat(${rows}, 50px)`;
+
+            const totalCells = rows * cols;
+
+            while (gridContainer.children.length < totalCells) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.addEventListener('click', handleCellClick);
+                gridContainer.appendChild(cell);
+            }
+
+            while (gridContainer.children.length > totalCells) {
+                gridContainer.removeChild(gridContainer.lastChild);
+            }
         }
 
-        // Function to handle clicks and play Tic-Tac-Toe
-        function playTicTacToe(event) {
+        // Handle cell click events
+        function handleCellClick(event) {
             const cell = event.target;
+
             if (cell.textContent === '') {
                 const playerInput = prompt("Enter 'X' or 'O':").toUpperCase();
                 if (playerInput === 'X' || playerInput === 'O') {
@@ -138,17 +161,14 @@
                     alert("Invalid input! Please enter 'X' or 'O'.");
                 }
             } else {
-                alert("This cell is already taken.");
+                cell.textContent = ''; // Clear the cell if already taken
             }
         }
 
         // Initialize the default 3x3 grid
         document.querySelectorAll('.cell').forEach(cell => {
-            cell.addEventListener('click', playTicTacToe);
+            cell.addEventListener('click', handleCellClick);
         });
-
-        // Event listener for setting a custom grid size
-        setGridButton.addEventListener('click', setGridSize);
     </script>
 </body>
 </html>
