@@ -227,7 +227,7 @@
 
         // Fetch an image from Unsplash based on input query
         function fetchImage(query, callback) {
-            const apiUrl = `https://api.unsplash.com/search/photos?page=1&query=${encodeURIComponent(query)}&client_id=${Qx3YpgcDyqCS-u50-vs2TevGhO-Un9TO05P6kiBtURU}`;
+            const apiUrl = `https://api.unsplash.com/search/photos?page=1&query=${encodeURIComponent(query)}&client_id=${unsplashAPIKey}`;
 
             fetch(apiUrl)
                 .then(response => response.json())
