@@ -12,8 +12,8 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #000;
-            color: #fff;
+            background-color: #fff; /* White background */
+            color: #000; /* Black text */
         }
 
         #controls {
@@ -22,7 +22,8 @@
             right: 20px;
             width: 200px;
             padding: 10px;
-            background-color: #fff;
+            background-color: #000; /* Black controls background */
+            color: #fff; /* White text */
             border: 1px solid #ccc;
             border-radius: 5px;
             z-index: 1000;
@@ -62,13 +63,16 @@
         #grid-container {
             display: grid;
             grid-gap: 5px;
-            background-color: #000;
+            background-color: #fff; /* White grid background */
             width: auto;
             max-width: 80%;
             height: auto;
             max-height: 80%;
             justify-content: center;
             align-items: center;
+            border: 1px solid #000; /* Black borders around grid */
+            padding: 5px;
+            box-sizing: border-box;
         }
 
         .cell {
@@ -77,8 +81,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #fff;
-            border: 1px solid #000;
+            background-color: #000; /* Black cells */
+            border: 1px solid #000; /* Black borders between cells */
             font-size: 18px;
             cursor: pointer;
         }
@@ -86,22 +90,14 @@
 </head>
 <body>
     <div id="controls">
-        <label for="grid-size">Enter Grid Size (e.g., 3x7):</label>
-        <input type="text" id="grid-size" placeholder="Rows x Columns">
+        <label for="grid-size">Enter Grid Size (e.g., 5x5):</label>
+        <input type="text" id="grid-size" placeholder="Rows x Columns" value="5x5">
         <button id="set-grid">Set Grid</button>
     </div>
 
     <div id="grid-container">
-        <!-- Initial 3x3 grid cells -->
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
+        <!-- Initial 5x5 grid cells -->
+        <!-- Generated dynamically based on input size -->
     </div>
 
     <script>
@@ -110,70 +106,43 @@
         const setGridButton = document.getElementById('set-grid');
         const controlsPanel = document.getElementById('controls');
 
-        function adjustGrid() {
-            const containerWidth = Math.floor(gridContainer.offsetWidth / 55); // 50px + 5px gap
-            const containerHeight = Math.floor(gridContainer.offsetHeight / 55);
+        // Initialize grid with default size
+        let currentRows = 5;
+        let currentCols = 5;
+        initializeGrid(currentRows, currentCols);
 
-            // Set new grid dimensions
-            gridContainer.style.gridTemplateColumns = `repeat(${containerWidth}, 50px)`;
-            gridContainer.style.gridTemplateRows = `repeat(${containerHeight}, 50px)`;
+        // Function to initialize the grid with specified rows and columns
+        function initializeGrid(rows, cols) {
+            gridContainer.innerHTML = ''; // Clear existing grid
 
-            // Calculate the total cells needed
-            const totalCells = containerWidth * containerHeight;
+            // Set grid dimensions
+            gridContainer.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
+            gridContainer.style.gridTemplateRows = `repeat(${rows}, 50px)`;
 
-            // Adjust cells dynamically
-            while (gridContainer.children.length < totalCells) {
+            // Create cells
+            for (let i = 0; i < rows * cols; i++) {
                 const cell = document.createElement('div');
                 cell.className = 'cell';
                 gridContainer.appendChild(cell);
             }
 
-            while (gridContainer.children.length > totalCells) {
-                gridContainer.removeChild(gridContainer.lastChild);
-            }
+            // Add click event listener to each cell
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach(cell => {
+                cell.addEventListener('click', () => {
+                    let symbol = prompt("Enter X or O:");
+                    if (symbol === 'X' || symbol === 'O') {
+                        cell.textContent = symbol;
+                    } else {
+                        alert("Please enter X or O.");
+                    }
+                });
+            });
         }
 
+        // Function to set grid size based on user input
         function setGridSize() {
             const gridSize = gridSizeInput.value.trim();
             const [rows, cols] = gridSize.split('x').map(Number);
 
-            if (rows > 0 && cols > 0) {
-                gridContainer.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
-                gridContainer.style.gridTemplateRows = `repeat(${rows}, 50px)`;
-
-                const totalCells = rows * cols;
-
-                while (gridContainer.children.length < totalCells) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell';
-                    gridContainer.appendChild(cell);
-                }
-
-                while (gridContainer.children.length > totalCells) {
-                    gridContainer.removeChild(gridContainer.lastChild);
-                }
-            } else {
-                alert('Please enter a valid grid size (e.g., 3x7).');
-            }
-        }
-
-        // Function to toggle collapsed state of controls panel
-        function toggleControlsPanel() {
-            controlsPanel.classList.toggle('collapsed');
-        }
-
-        // Attach event listener to handle resizing
-        gridContainer.addEventListener('mouseup', adjustGrid);
-        setGridButton.addEventListener('click', setGridSize);
-
-        // Keyboard shortcuts for collapsing/expanding controls panel
-        document.addEventListener('keydown', function(event) {
-            if (event.ctrlKey && event.key === '>') {
-                toggleControlsPanel();
-            } else if (event.ctrlKey && event.key === '<') {
-                toggleControlsPanel();
-            }
-        });
-    </script>
-</body>
-</html>
+            i
