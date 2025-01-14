@@ -8,14 +8,22 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            background-color: #f0f0f0;
+            height: 100vh;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         #controls {
-            position: fixed;
-            right: 20px;
-            top: 20px;
+            margin-bottom: 20px;
             width: 200px;
             padding: 10px;
             background-color: #fff;
@@ -56,14 +64,11 @@
             grid-template-columns: repeat(3, 50px);
             grid-template-rows: repeat(3, 50px);
             gap: 5px;
-            margin: auto;
-            margin-left: 20px;
             background-color: #fff;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            resize: both;
-            overflow: auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .cell {
@@ -80,26 +85,27 @@
     </style>
 </head>
 <body>
-    <div id="grid-container">
-        <!-- Default 3x3 grid -->
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-    </div>
-
-    <div id="controls">
-        <label for="grid-size">Enter Grid Size (e.g., 3x7):</label>
-        <input type="text" id="grid-size" placeholder="Rows x Columns">
-        <button id="set-grid">Set Grid</button>
-        <button id="reset-grid">Reset</button>
-        <button id="increase-cell-size">Increase Cell Size</button>
-        <button id="decrease-cell-size">Decrease Cell Size</button>
+    <div id="container">
+        <div id="controls">
+            <label for="grid-size">Enter Grid Size (e.g., 3x7):</label>
+            <input type="text" id="grid-size" placeholder="Rows x Columns">
+            <button id="set-grid">Set Grid</button>
+            <button id="reset-grid">Reset</button>
+            <button id="increase-cell-size">Increase Cell Size</button>
+            <button id="decrease-cell-size">Decrease Cell Size</button>
+        </div>
+        <div id="grid-container">
+            <!-- Default 3x3 grid -->
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
     </div>
 
     <script>
