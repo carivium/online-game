@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Session Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            text-align: center;
+        }
+        label, input, button {
+            font-size: 16px;
+            margin: 10px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weekly Session Calculator</h1>
+    <div>
+        <label for="sessions">Sessions per week:</label>
+        <input type="number" id="sessions" min="0" placeholder="Enter number">
+    </div>
+    <div id="result"></div>
+    <div>
+        <label for="weeks">Weeks:</label>
+        <input type="number" id="weeks" min="1" value="1">
+        <button onclick="calculateTotalForWeeks()">Calculate for Weeks</button>
+    </div>
+    <script>
+        const sessionsInput = document.getElementById('sessions');
+        const resultDiv = document.getElementById('result');
+        const weeksInput = document.getElementById('weeks');
+
+        // Automatically update weekly total when sessions input changes
+        sessionsInput.addEventListener('input', () => {
+            const sessions = parseFloat(sessionsInput.value) || 0;
+            const weeklyTotal = sessions * 75;
+            resultDiv.textContent = `Weekly Total: $${weeklyTotal.toFixed(2)}`;
+        });
+
+        // Calculate total for n weeks when the button is clicked
+        function calculateTotalForWeeks() {
+            const sessions = parseFloat(sessionsInput.value) || 0;
+            const weeks = parseInt(weeksInput.value) || 1;
+            const totalForWeeks = sessions * 75 * weeks;
+            alert(`Total after ${weeks} week(s): $${totalForWeeks.toFixed(2)}`);
+        }
+    </script>
+</body>
+</html>
