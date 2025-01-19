@@ -44,24 +44,24 @@
         <tbody>
             <tr>
                 <td>Income</td>
-                <td><textarea id="income-yearly" oninput="updateValues('income')"></textarea></td>
-                <td><textarea id="income-monthly" oninput="updateValues('income')"></textarea></td>
-                <td><textarea id="income-weekly" oninput="updateValues('income')"></textarea></td>
-                <td><textarea id="income-oneoff" oninput="updateValues('income')"></textarea></td>
+                <td><textarea id="income-yearly" oninput="updateValues('income', 'yearly')"></textarea></td>
+                <td><textarea id="income-monthly" oninput="updateValues('income', 'monthly')"></textarea></td>
+                <td><textarea id="income-weekly" oninput="updateValues('income', 'weekly')"></textarea></td>
+                <td><textarea id="income-oneoff" oninput="updateValues('income', 'oneoff')"></textarea></td>
             </tr>
             <tr>
                 <td>Credit</td>
-                <td><textarea id="credit-yearly" oninput="updateValues('credit')"></textarea></td>
-                <td><textarea id="credit-monthly" oninput="updateValues('credit')"></textarea></td>
-                <td><textarea id="credit-weekly" oninput="updateValues('credit')"></textarea></td>
-                <td><textarea id="credit-oneoff" oninput="updateValues('credit')"></textarea></td>
+                <td><textarea id="credit-yearly" oninput="updateValues('credit', 'yearly')"></textarea></td>
+                <td><textarea id="credit-monthly" oninput="updateValues('credit', 'monthly')"></textarea></td>
+                <td><textarea id="credit-weekly" oninput="updateValues('credit', 'weekly')"></textarea></td>
+                <td><textarea id="credit-oneoff" oninput="updateValues('credit', 'oneoff')"></textarea></td>
             </tr>
             <tr>
                 <td>Debit</td>
-                <td><textarea id="debit-yearly" oninput="updateValues('debit')"></textarea></td>
-                <td><textarea id="debit-monthly" oninput="updateValues('debit')"></textarea></td>
-                <td><textarea id="debit-weekly" oninput="updateValues('debit')"></textarea></td>
-                <td><textarea id="debit-oneoff" oninput="updateValues('debit')"></textarea></td>
+                <td><textarea id="debit-yearly" oninput="updateValues('debit', 'yearly')"></textarea></td>
+                <td><textarea id="debit-monthly" oninput="updateValues('debit', 'monthly')"></textarea></td>
+                <td><textarea id="debit-weekly" oninput="updateValues('debit', 'weekly')"></textarea></td>
+                <td><textarea id="debit-oneoff" oninput="updateValues('debit', 'oneoff')"></textarea></td>
             </tr>
         </tbody>
     </table>
@@ -77,31 +77,35 @@
             return values.reduce((sum, val) => sum + val, 0);
         }
 
-        function updateValues(category) {
-            const yearlyInput = document.getElementById(`${category}-yearly`).value;
-            const monthlyInput = document.getElementById(`${category}-monthly`).value;
-            const weeklyInput = document.getElementById(`${category}-weekly`).value;
-            const oneoffInput = document.getElementById(`${category}-oneoff`).value;
+        function updateValues(category, source) {
+            const yearlyField = document.getElementById(`${category}-yearly`);
+            const monthlyField = document.getElementById(`${category}-monthly`);
+            const weeklyField = document.getElementById(`${category}-weekly`);
+            const oneoffField = document.getElementById(`${category}-oneoff`);
 
-            const yearlyValues = parseMultipleValues(yearlyInput);
-            const monthlyValues = parseMultipleValues(monthlyInput);
-            const weeklyValues = parseMultipleValues(weeklyInput);
-            const oneoffValues = parseMultipleValues(oneoffInput);
+            const yearlyValues = parseMultipleValues(yearlyField.value);
+            const monthlyValues = parseMultipleValues(monthlyField.value);
+            const weeklyValues = parseMultipleValues(weeklyField.value);
+            const oneoffValues = parseMultipleValues(oneoffField.value);
 
-            const yearlyTotal = sumValues(yearlyValues);
-            const monthlyTotal = sumValues(monthlyValues);
-            const weeklyTotal = sumValues(weeklyValues);
-            const oneoffTotal = sumValues(oneoffValues);
+            let yearlyTotal = sumValues(yearlyValues);
+            let monthlyTotal = sumValues(monthlyValues);
+            let weeklyTotal = sumValues(weeklyValues);
 
-            if (yearlyInput !== document.activeElement.value) {
-                document.getElementById(`${category}-yearly`).value = yearlyTotal.toFixed(2);
+            if (source === 'yearly') {
+                monthlyTotal = yearlyTotal / 12;
+                weeklyTotal = yearlyTotal / 52;
+            } else if (source === 'monthly') {
+                yearlyTotal = monthlyTotal * 12;
+                weeklyTotal = yearlyTotal / 52;
+            } else if (source === 'weekly') {
+                yearlyTotal = weeklyTotal * 52;
+                monthlyTotal = yearlyTotal / 12;
             }
-            if (monthlyInput !== document.activeElement.value) {
-                document.getElementById(`${category}-monthly`).value = (yearlyTotal / 12).toFixed(2);
-            }
-            if (weeklyInput !== document.activeElement.value) {
-                document.getElementById(`${category}-weekly`).value = (yearlyTotal / 52).toFixed(2);
-            }
+
+            if (source !== 'yearly') yearlyField.value = yearlyTotal.toFixed(2);
+            if (source !== 'monthly') monthlyField.value = monthlyTotal.toFixed(2);
+            if (source !== 'weekly') weeklyField.value = weeklyTotal.toFixed(2);
 
             calculateNetIncome();
         }
