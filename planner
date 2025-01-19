@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        input {
+            width: 80%;
+            padding: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Finance Planner</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Yearly</th>
+                <th>Monthly</th>
+                <th>Weekly</th>
+                <th>One-off</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Income</td>
+                <td><input type="number" id="income-yearly" oninput="updateValues()"></td>
+                <td><input type="number" id="income-monthly" disabled></td>
+                <td><input type="number" id="income-weekly" disabled></td>
+                <td><input type="number" id="income-oneoff" oninput="updateValues()"></td>
+            </tr>
+            <tr>
+                <td>Credit</td>
+                <td><input type="number" id="credit-yearly" oninput="updateValues()"></td>
+                <td><input type="number" id="credit-monthly" disabled></td>
+                <td><input type="number" id="credit-weekly" disabled></td>
+                <td><input type="number" id="credit-oneoff" oninput="updateValues()"></td>
+            </tr>
+            <tr>
+                <td>Debit</td>
+                <td><input type="number" id="debit-yearly" oninput="updateValues()"></td>
+                <td><input type="number" id="debit-monthly" disabled></td>
+                <td><input type="number" id="debit-weekly" disabled></td>
+                <td><input type="number" id="debit-oneoff" oninput="updateValues()"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Net Income: <span id="net-income">$0.00</span></h2>
+
+    <script>
+        function updateValues() {
+            const yearlyToMonthly = 1 / 12;
+            const yearlyToWeekly = 1 / 52;
+
+            // Get inputs
+            const incomeYearly = parseFloat(document.getElementById('income-yearly').value) || 0;
+            const incomeOneoff = parseFloat(document.getElementById('income-oneoff').value) || 0;
+
+            const creditYearly = parseFloat(document.getElementById('credit-yearly').value) || 0;
+            const creditOneoff = parseFloat(document.getElementById('credit-oneoff').value) || 0;
+
+            const debitYearly = parseFloat(document.getElementById('debit-yearly').value) || 0;
+            const debitOneoff = parseFloat(document.getElementById('debit-oneoff').value) || 0;
+
+            // Calculate monthly and weekly values
+            document.getElementById('income-monthly').value = (incomeYearly * yearlyToMonthly).toFixed(2);
+            document.getElementById('income-weekly').value = (incomeYearly * yearlyToWeekly).toFixed(2);
+
+            document.getElementById('credit-monthly').value = (creditYearly * yearlyToMonthly).toFixed(2);
+            document.getElementById('credit-weekly').value = (creditYearly * yearlyToWeekly).toFixed(2);
+
+            document.getElementById('debit-monthly').value = (debitYearly * yearlyToMonthly).toFixed(2);
+            document.getElementById('debit-weekly').value = (debitYearly * yearlyToWeekly).toFixed(2);
+
+            // Calculate net income
+            const totalIncome = incomeYearly + incomeOneoff;
+            const totalCredit = creditYearly + creditOneoff;
+            const totalDebit = debitYearly + debitOneoff;
+            const netIncome = totalIncome + totalCredit - totalDebit;
+
+            document.getElementById('net-income').textContent = `$${netIncome.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
