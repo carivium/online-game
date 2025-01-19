@@ -10,7 +10,7 @@
             margin: 50px;
             text-align: center;
         }
-        label, input, button {
+        label, input {
             font-size: 16px;
             margin: 10px;
         }
@@ -18,6 +18,11 @@
             margin-top: 20px;
             font-size: 18px;
             color: #333;
+        }
+        #total-for-weeks {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #555;
         }
     </style>
 </head>
@@ -31,27 +36,36 @@
     <div>
         <label for="weeks">Weeks:</label>
         <input type="number" id="weeks" min="1" value="1">
-        <button onclick="calculateTotalForWeeks()">Calculate for Weeks</button>
     </div>
+    <div id="total-for-weeks"></div>
     <script>
         const sessionsInput = document.getElementById('sessions');
         const resultDiv = document.getElementById('result');
         const weeksInput = document.getElementById('weeks');
+        const totalForWeeksDiv = document.getElementById('total-for-weeks');
 
-        // Automatically update weekly total when sessions input changes
-        sessionsInput.addEventListener('input', () => {
+        // Update weekly total when sessions input changes
+        function updateWeeklyTotal() {
             const sessions = parseFloat(sessionsInput.value) || 0;
             const weeklyTotal = sessions * 75;
             resultDiv.textContent = `Weekly Total: $${weeklyTotal.toFixed(2)}`;
-        });
+            updateTotalForWeeks();
+        }
 
-        // Calculate total for n weeks when the button is clicked
-        function calculateTotalForWeeks() {
+        // Update total for n weeks
+        function updateTotalForWeeks() {
             const sessions = parseFloat(sessionsInput.value) || 0;
             const weeks = parseInt(weeksInput.value) || 1;
             const totalForWeeks = sessions * 75 * weeks;
-            alert(`Total after ${weeks} week(s): $${totalForWeeks.toFixed(2)}`);
+            totalForWeeksDiv.textContent = `Total after ${weeks} week(s): $${totalForWeeks.toFixed(2)}`;
         }
+
+        // Add event listeners to update totals dynamically
+        sessionsInput.addEventListener('input', updateWeeklyTotal);
+        weeksInput.addEventListener('input', updateTotalForWeeks);
+
+        // Initial calculation
+        updateWeeklyTotal();
     </script>
 </body>
 </html>
