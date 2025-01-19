@@ -44,24 +44,24 @@
         <tbody>
             <tr>
                 <td>Income</td>
-                <td><input type="number" id="income-yearly" oninput="updateValues()"></td>
-                <td><input type="number" id="income-monthly" disabled></td>
-                <td><input type="number" id="income-weekly" disabled></td>
-                <td><input type="number" id="income-oneoff" oninput="updateValues()"></td>
+                <td><textarea id="income-yearly" oninput="updateValues('income')"></textarea></td>
+                <td><textarea id="income-monthly" oninput="updateValues('income')"></textarea></td>
+                <td><textarea id="income-weekly" oninput="updateValues('income')"></textarea></td>
+                <td><textarea id="income-oneoff" oninput="updateValues('income')"></textarea></td>
             </tr>
             <tr>
                 <td>Credit</td>
-                <td><input type="number" id="credit-yearly" oninput="updateValues()"></td>
-                <td><input type="number" id="credit-monthly" disabled></td>
-                <td><input type="number" id="credit-weekly" disabled></td>
-                <td><input type="number" id="credit-oneoff" oninput="updateValues()"></td>
+                <td><textarea id="credit-yearly" oninput="updateValues('credit')"></textarea></td>
+                <td><textarea id="credit-monthly" oninput="updateValues('credit')"></textarea></td>
+                <td><textarea id="credit-weekly" oninput="updateValues('credit')"></textarea></td>
+                <td><textarea id="credit-oneoff" oninput="updateValues('credit')"></textarea></td>
             </tr>
             <tr>
                 <td>Debit</td>
-                <td><input type="number" id="debit-yearly" oninput="updateValues()"></td>
-                <td><input type="number" id="debit-monthly" disabled></td>
-                <td><input type="number" id="debit-weekly" disabled></td>
-                <td><input type="number" id="debit-oneoff" oninput="updateValues()"></td>
+                <td><textarea id="debit-yearly" oninput="updateValues('debit')"></textarea></td>
+                <td><textarea id="debit-monthly" oninput="updateValues('debit')"></textarea></td>
+                <td><textarea id="debit-weekly" oninput="updateValues('debit')"></textarea></td>
+                <td><textarea id="debit-oneoff" oninput="updateValues('debit')"></textarea></td>
             </tr>
         </tbody>
     </table>
@@ -69,38 +69,56 @@
     <h2>Net Income: <span id="net-income">$0.00</span></h2>
 
     <script>
-        function updateValues() {
-            const yearlyToMonthly = 1 / 12;
-            const yearlyToWeekly = 1 / 52;
+        function parseMultipleValues(input) {
+            return input.split(',').map(val => parseFloat(val) || 0);
+        }
 
-            // Get inputs
-            const incomeYearly = parseFloat(document.getElementById('income-yearly').value) || 0;
-            const incomeOneoff = parseFloat(document.getElementById('income-oneoff').value) || 0;
+        function sumValues(values) {
+            return values.reduce((sum, val) => sum + val, 0);
+        }
 
-            const creditYearly = parseFloat(document.getElementById('credit-yearly').value) || 0;
-            const creditOneoff = parseFloat(document.getElementById('credit-oneoff').value) || 0;
+        function updateValues(category) {
+            const yearlyInput = document.getElementById(`${category}-yearly`).value;
+            const monthlyInput = document.getElementById(`${category}-monthly`).value;
+            const weeklyInput = document.getElementById(`${category}-weekly`).value;
+            const oneoffInput = document.getElementById(`${category}-oneoff`).value;
 
-            const debitYearly = parseFloat(document.getElementById('debit-yearly').value) || 0;
-            const debitOneoff = parseFloat(document.getElementById('debit-oneoff').value) || 0;
+            const yearlyValues = parseMultipleValues(yearlyInput);
+            const monthlyValues = parseMultipleValues(monthlyInput);
+            const weeklyValues = parseMultipleValues(weeklyInput);
+            const oneoffValues = parseMultipleValues(oneoffInput);
 
-            // Calculate monthly and weekly values
-            document.getElementById('income-monthly').value = (incomeYearly * yearlyToMonthly).toFixed(2);
-            document.getElementById('income-weekly').value = (incomeYearly * yearlyToWeekly).toFixed(2);
+            const yearlyTotal = sumValues(yearlyValues);
+            const monthlyTotal = sumValues(monthlyValues);
+            const weeklyTotal = sumValues(weeklyValues);
+            const oneoffTotal = sumValues(oneoffValues);
 
-            document.getElementById('credit-monthly').value = (creditYearly * yearlyToMonthly).toFixed(2);
-            document.getElementById('credit-weekly').value = (creditYearly * yearlyToWeekly).toFixed(2);
+            if (yearlyInput !== document.activeElement.value) {
+                document.getElementById(`${category}-yearly`).value = yearlyTotal.toFixed(2);
+            }
+            if (monthlyInput !== document.activeElement.value) {
+                document.getElementById(`${category}-monthly`).value = (yearlyTotal / 12).toFixed(2);
+            }
+            if (weeklyInput !== document.activeElement.value) {
+                document.getElementById(`${category}-weekly`).value = (yearlyTotal / 52).toFixed(2);
+            }
 
-            document.getElementById('debit-monthly').value = (debitYearly * yearlyToMonthly).toFixed(2);
-            document.getElementById('debit-weekly').value = (debitYearly * yearlyToWeekly).toFixed(2);
+            calculateNetIncome();
+        }
 
-            // Calculate net income
-            const totalIncome = incomeYearly + incomeOneoff;
-            const totalCredit = creditYearly + creditOneoff;
-            const totalDebit = debitYearly + debitOneoff;
-            const netIncome = totalIncome + totalCredit - totalDebit;
+        function calculateNetIncome() {
+            const incomeYearly = sumValues(parseMultipleValues(document.getElementById('income-yearly').value));
+            const creditYearly = sumValues(parseMultipleValues(document.getElementById('credit-yearly').value));
+            const debitYearly = sumValues(parseMultipleValues(document.getElementById('debit-yearly').value));
+            const incomeOneoff = sumValues(parseMultipleValues(document.getElementById('income-oneoff').value));
+            const creditOneoff = sumValues(parseMultipleValues(document.getElementById('credit-oneoff').value));
+            const debitOneoff = sumValues(parseMultipleValues(document.getElementById('debit-oneoff').value));
 
+            const netIncome = (incomeYearly + incomeOneoff + creditYearly + creditOneoff) - (debitYearly + debitOneoff);
             document.getElementById('net-income').textContent = `$${netIncome.toFixed(2)}`;
         }
+
+        calculateNetIncome();
     </script>
 </body>
 </html>
